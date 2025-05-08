@@ -40,7 +40,8 @@
                     class=" max-w-16 max-h-16 rounded-full object-cover"
                     src="https://xcdn.argon.gl/user/b7404c69abf24d73b7b0f4f232c85815/ef70cbc221d3493b9419d908a182d232.jpg" />
                 <i class="ph ph-plus"></i>
-                <i class="ph ph-telegram-logo text-blue-400" style="font-size: 64px;"></i>
+                <i class="ph ph-telegram-logo text-blue-400"
+                    style="font-size: 64px;"></i>
             </div>
 
             <!-- Telegram Login Widget -->
@@ -50,7 +51,7 @@
                     data-size="large"
                     data-userpic="false"
                     data-radius="8"
-                    data-callback="onTelegramAuth"
+                    data-onauth="onTelegramAuth(user)"
                     data-request-access="write">
                 </script>
             </div>
