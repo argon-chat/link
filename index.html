@@ -1,48 +1,55 @@
 <!DOCTYPE html>
-<html lang="ru" class="bg-gray-900 text-white">
+<html>
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Link Telegram</title>
         <script src="https://unpkg.com/@phosphor-icons/web"></script>
-        <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+        <script
+            src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
 
         <script>
       window.addEventListener("DOMContentLoaded", () => {
         const params = new URLSearchParams(window.location.search);
         const avatarBase64 = params.get("aav");
 
-        const img = document.getElementById("avatar");
+        /*const img = document.getElementById("avatar");
         if (avatarBase64) {
-          img.src = `data:image/png;base64,${avatarBase64}`;
+          img.src = ``;
         } else {
           img.classList.add("hidden");
-        }
+        }*/
       });
     </script>
+        <style>
+        body {
+    background-color: hsl(240 10% 3.9%);
+    color: hsl(0 0% 98%);
+}
+    </style>
     </head>
     <body class="flex items-center justify-center min-h-screen">
         <div class="flex flex-col items-center gap-6 text-center">
             <!-- Аватар -->
-            <img
-                id="avatar"
-                alt="User Avatar"
-                class="w-32 h-32 rounded-full border-4 border-gray-700 object-cover" />
 
             <!-- Плюсик и Телега -->
             <div class="flex items-center gap-4 text-4xl text-white/80">
+                <img
+                    id="avatar"
+                    alt="User Avatar"
+                    class=" max-w-16 max-h-16 rounded-full object-cover"
+                    src="https://xcdn.argon.gl/user/b7404c69abf24d73b7b0f4f232c85815/ef70cbc221d3493b9419d908a182d232.jpg" />
                 <i class="ph ph-plus"></i>
-                <i class="ph ph-telegram-logo text-blue-400"></i>
+                <i class="ph ph-telegram-logo text-blue-400" style="font-size: 64px;"></i>
             </div>
 
             <!-- Telegram Login Widget -->
             <div id="telegram-login-button" class="mt-2">
                 <script async src="https://telegram.org/js/telegram-widget.js?7"
-                    data-telegram-login="YOUR_BOT_USERNAME"
+                    data-telegram-login="argon_chat_link_bot"
                     data-size="large"
                     data-userpic="false"
                     data-radius="8"
-                    data-lang="ru"
                     data-callback="onTelegramAuth"
                     data-request-access="write">
                 </script>
