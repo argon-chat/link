@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="ru" class="bg-gray-900 text-white">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Link Telegram</title>
+        <script src="https://unpkg.com/@phosphor-icons/web"></script>
+        <link
+            href="https://cdn.jsdelivr.net/npm/tailwindcss@3.4.1/dist/tailwind.min.css"
+            rel="stylesheet" />
+
+        <script>
+      window.addEventListener("DOMContentLoaded", () => {
+        const params = new URLSearchParams(window.location.search);
+        const avatarBase64 = params.get("aav");
+
+        const img = document.getElementById("avatar");
+        if (avatarBase64) {
+          img.src = `data:image/png;base64,${avatarBase64}`;
+        } else {
+          img.classList.add("hidden");
+        }
+      });
+    </script>
+    </head>
+    <body class="flex items-center justify-center min-h-screen">
+        <div class="flex flex-col items-center gap-6 text-center">
+            <!-- Аватар -->
+            <img
+                id="avatar"
+                alt="User Avatar"
+                class="w-32 h-32 rounded-full border-4 border-gray-700 object-cover" />
+
+            <!-- Плюсик и Телега -->
+            <div class="flex items-center gap-4 text-4xl text-white/80">
+                <i class="ph ph-plus"></i>
+                <i class="ph ph-telegram-logo text-blue-400"></i>
+            </div>
+
+            <!-- Telegram Login Widget -->
+            <div id="telegram-login-button" class="mt-2">
+                <script async src="https://telegram.org/js/telegram-widget.js?7"
+                    data-telegram-login="YOUR_BOT_USERNAME"
+                    data-size="large"
+                    data-userpic="false"
+                    data-radius="8"
+                    data-lang="ru"
+                    data-callback="onTelegramAuth"
+                    data-request-access="write">
+                </script>
+            </div>
+        </div>
+
+        <script>
+      function onTelegramAuth(user) {
+        console.log("Telegram user:", user);
+        // Тут можешь отправить user.id, user.hash и т.д. на бэкенд для проверки
+      }
+    </script>
+    </body>
+</html>
