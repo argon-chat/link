@@ -9,47 +9,40 @@
             src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
 
         <script>
-      window.addEventListener("DOMContentLoaded", () => {
-        const params = new URLSearchParams(window.location.search);
-        const avatarBase64 = params.get("aav");
+            window.addEventListener("DOMContentLoaded", () => {
+                const params = new URLSearchParams(window.location.search);
+                const avatarBase64 = params.get("aav");
 
-        /*const img = document.getElementById("avatar");
-        if (avatarBase64) {
-          img.src = ``;
-        } else {
-          img.classList.add("hidden");
-        }*/
-      });
-    </script>
+                const img = document.getElementById("avatar");
+                if (avatarBase64) {
+                img.src = `https://xcdn.argon.gl/user/${avatarBase64}`;
+                } 
+            });
+        </script>
         <style>
         body {
-    background-color: hsl(240 10% 3.9%);
-    color: hsl(0 0% 98%);
-}
+            background-color: hsl(240 10% 3.9%);
+            color: hsl(0 0% 98%);
+        }
     </style>
     </head>
     <body class="flex items-center justify-center min-h-screen">
         <div class="flex flex-col items-center gap-6 text-center">
-            <!-- Аватар -->
-
-            <!-- Плюсик и Телега -->
             <div class="flex items-center gap-4 text-4xl text-white/80">
                 <img
                     id="avatar"
                     alt="User Avatar"
                     class=" max-w-16 max-h-16 rounded-full object-cover"
-                    src="https://xcdn.argon.gl/user/b7404c69abf24d73b7b0f4f232c85815/ef70cbc221d3493b9419d908a182d232.jpg" />
+                    src="https://xcdn.argon.gl/user/" />
                 <i class="ph ph-plus"></i>
                 <i class="ph ph-telegram-logo text-blue-400"
                     style="font-size: 64px;"></i>
             </div>
-
-            <!-- Telegram Login Widget -->
             <div id="telegram-login-button" class="mt-2">
                 <script async src="https://telegram.org/js/telegram-widget.js?7"
                     data-telegram-login="argon_chat_link_bot"
                     data-size="large"
-                    data-userpic="false"
+                    data-userpic="true"
                     data-radius="8"
                     data-onauth="onTelegramAuth(user)"
                     data-request-access="write">
@@ -58,10 +51,31 @@
         </div>
 
         <script>
-      function onTelegramAuth(user) {
-        console.log("Telegram user:", user);
-        // Тут можешь отправить user.id, user.hash и т.д. на бэкенд для проверки
-      }
-    </script>
+        function onTelegramAuth(user) {
+            const params = new URLSearchParams(window.location.search);
+            const acv = params.get("acv");
+
+            fetch("https://api.argon.gl/api/link-telegram", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                        telegram: user,
+                        acv: acv
+                    })
+                })
+                .then(res => {
+                    if (!res.ok) throw new Error("Server error");
+                        return res.json();
+                })
+                .then(data => {
+                    console.log("Success:", data);
+                })
+                .catch(err => {
+                    console.error("Error linking Telegram:", err);
+            });
+        }
+        </script>
     </body>
 </html>
