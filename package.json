@@ -14,6 +14,7 @@
     "glue-proto:linux": "protoc --plugin=\"protoc-gen-ts=./node_modules/.bin/protoc-gen-ts\" --proto_path=\"../src/Thridparty/ArgonServer/src/Argon.Contracts/Protos\" --ts_out=\"./src/lib/proto\" \"transport.proto\""
   },
   "dependencies": {
+    "@argon-chat/argx": "^1.0.4",
     "@argon-chat/infer": "^1.0.4",
     "@ffmpeg/core": "^0.12.10",
     "@ffmpeg/ffmpeg": "^0.12.15",
