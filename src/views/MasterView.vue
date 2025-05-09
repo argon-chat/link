@@ -1,11 +1,11 @@
 <template>
   <div class="app-container flex h-screen gap-4 p-7 flex items-center justify-center min-h-screen"
     style="width: 100svw; height: 100svh;">
-    <span style="position: fixed; top: 5rem;     min-width: 120rem;">
+    <span style="position: fixed; top: 5rem;min-width: 120rem;z-index: -555;">
       <TextHoverEffect class="max-lg:w-full min-md:flex-1" text="Argon Chat" />
     </span>
 
-    <div v-if="!isCompletedPhase">
+    <div v-if="!isCompletedPhase" style="z-index: 555;">
       <div class="flex flex-col items-center gap-6 text-center" v-if="avatarBlock && authKey">
         <br />
         <div class="flex items-center gap-4 text-4xl text-white/80">
@@ -98,7 +98,7 @@ const isSuccessLink = ref(false);
 
 const client = createTransportClient("https://api.argon.gl", () => "");
 const handleUserScope = client.scope<IUserInteraction>("IUserInteraction");
-const avatarUrl = computed(() => `https://xcdn.argon.gl/user/${avatarBlock.value}.jpg`);
+const avatarUrl = computed(() => `https://xcdn.argon.gl/user/${avatarBlock.value}`);
 
 
 async function handleUserAuth(user: LoginWidgetUser) {
