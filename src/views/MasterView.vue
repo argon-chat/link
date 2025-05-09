@@ -60,7 +60,7 @@ import { LoginWidget } from 'vue-tg'
 import type { LoginWidgetUser } from 'vue-tg'
 import { PhTelegramLogo, PhPlus } from "@phosphor-icons/vue";
 import { useRouteQuery } from '@vueuse/router'
-import { computed, onMounted, ref } from 'vue';
+import { computed, ref } from 'vue';
 import { logger } from '@/lib/logger';
 import basex from 'base-x';
 import sss from "@/assets/undraw_farming_u62j.svg";
@@ -80,7 +80,7 @@ function fireConfetti() {
 }
 
 interface IUserInteraction {
-  CreateSocialBoundAsync(request: { TgUser: string, Token: string, Kind: "Telegram", UserSlash: string }): Promise<boolean>;
+  CreateSocialBoundAsync(request: { User: string, Token: string, Kind: "Telegram", UserSlash: string }): Promise<boolean>;
 }
 
 const rrd = {
@@ -102,15 +102,21 @@ const avatarUrl = computed(() => `https://xcdn.argon.gl/user/${avatarBlock.value
 
 
 async function handleUserAuth(user: LoginWidgetUser) {
-  logger.log(user);
-  isCompletedPhase.value = true;
-
-  isSuccessLink.value = await handleUserScope.CreateSocialBoundAsync({
-    Token: authKey.value,
-    TgUser: JSON.stringify(user),
-    Kind: "Telegram",
-    UserSlash: avatarBlock.value
-  })
+  try {
+    isSuccessLink.value = await handleUserScope.CreateSocialBoundAsync({
+      Token: authKey.value,
+      User: JSON.stringify(user),
+      Kind: "Telegram",
+      UserSlash: avatarBlock.value
+    });
+  }
+  catch (e) {
+    logger.error(e);
+    isSuccessLink.value = false;
+  }
+  finally {
+    isCompletedPhase.value = true;
+  }
 }
 
 </script>
