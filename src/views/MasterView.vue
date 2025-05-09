@@ -80,7 +80,7 @@ function fireConfetti() {
 }
 
 interface IUserInteraction {
-  CreateSocialBoundAsync(request: { User: string, Token: string, Kind: "Telegram", UserSlash: string }): Promise<boolean>;
+  CompleteSocialBoundAsync(token: string, socialUser: string, kind: "Telegram", userSlash: string): Promise<boolean>;
 }
 
 const rrd = {
@@ -91,7 +91,7 @@ const rrd = {
 (window as any)["rrd"] = rrd;
 
 const avatarBlock = useRouteQuery('aav', "", { transform: { get: rrd.decode, set: rrd.encode } });
-const authKey = useRouteQuery("aac", "", { transform: { get: rrd.decode, set: rrd.encode } });
+const authKey = useRouteQuery("aac", "");
 
 const isCompletedPhase = ref(false);
 const isSuccessLink = ref(false);
@@ -103,12 +103,7 @@ const avatarUrl = computed(() => `https://xcdn.argon.gl/user/${avatarBlock.value
 
 async function handleUserAuth(user: LoginWidgetUser) {
   try {
-    isSuccessLink.value = await handleUserScope.CreateSocialBoundAsync({
-      Token: authKey.value,
-      User: JSON.stringify(user),
-      Kind: "Telegram",
-      UserSlash: avatarBlock.value
-    });
+    isSuccessLink.value = await handleUserScope.CompleteSocialBoundAsync(authKey.value, JSON.stringify(user), "Telegram", avatarBlock.value);
   }
   catch (e) {
     logger.error(e);
