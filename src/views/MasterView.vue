@@ -14,12 +14,12 @@
           <PhTelegramLogo size="64" class="text-blue-400" />
         </div>
         <div id="telegram-login-button" class="mt-2">
-          <LoginWidget bot-username="argon_chat_link_bot" data-size="large" data-userpic="true" data-radius="8"
+          <LoginWidget bot-username="argon_chat_link_bot" :request-write="true" data-size="large" data-userpic="true" data-radius="8"
             @auth="handleUserAuth" />
         </div>
       </div>
       <div v-else>
-        <div class="flex items-center gap-4 text-4xl text-white/80" style="    flex-direction: column;">
+        <div class="flex items-center gap-4 text-4xl text-white/80" style="flex-direction: column;">
           <div>
             <img :src="sss" style="width: 10rem;" />
           </div>
